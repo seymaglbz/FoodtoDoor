@@ -62,7 +62,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         present(tabBarController, animated: true, completion: nil)
     }
     
-    private func checkLocationServices() {
+    func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled(){
             setupLocationManager()
             checkLocationAuthorization()
@@ -71,14 +71,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func setupLocationManager() {
+    func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
-    private func checkLocationAuthorization() {
+    func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus(){
         case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
             startTrackingUserLocation()
         case .denied:
             Alert.showUnableToRetrieveLocationAlert(on: self)
@@ -96,31 +97,30 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func startTrackingUserLocation() {
+    func startTrackingUserLocation() {
         sharedMapView.mapView.showsUserLocation = true
         centerViewOnUserLocation()
         previousLocation = getCenterLocation(for: sharedMapView.mapView)
         guard let previousLocation = previousLocation else {return}
-        
         reverseGeoCode(from: previousLocation)
     }
     
-    private func getCenterLocation(for mapView: MKMapView) -> CLLocation {
+    func centerViewOnUserLocation() {
+        guard let location = locationManager.location?.coordinate else {return}
+        let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        sharedMapView.mapView.setRegion(region, animated: true)
+    }
+    
+    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
         let latitude = mapView.centerCoordinate.latitude
         let longitude = mapView.centerCoordinate.longitude
         
         return CLLocation(latitude: latitude, longitude: longitude)
     }
     
-    private func centerViewOnUserLocation() {
-        guard let location = locationManager.location?.coordinate else {return}
-        let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        sharedMapView.mapView.setRegion(region, animated: true)
-    }
-    
-    private func reverseGeoCode(from location: CLLocation) {
+    func reverseGeoCode(from location: CLLocation) {
         geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(location) { [weak self ](placemarks, error) in
+        geoCoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
             guard let self = self else {return}
             
             guard error == nil else {
@@ -145,6 +145,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
 //MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else {return}
+        locationManager.stopUpdatingLocation()
+        
+        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        sharedMapView.mapView.setRegion(region, animated: true)
+        reverseGeoCode(from: location)
+    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()

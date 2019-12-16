@@ -13,12 +13,12 @@ class FavoritesViewController: StoreListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataManager.loadFavorites()
+        self.dataManager.loadFavorites()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        dataManager.loadFavorites()
+        self.dataManager.loadFavorites()
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

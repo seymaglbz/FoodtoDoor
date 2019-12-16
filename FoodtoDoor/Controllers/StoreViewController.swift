@@ -83,10 +83,10 @@ class StoreViewController: UIViewController {
             }
             return}
         for store in favoriteVC.dataManager.stores where store.id == selectedStore.id {return}
-        
         favoriteVC.dataManager.stores.append(selectedStore)
         dataManager.saveFavorites(favoriteVC.dataManager.stores)
     }
+    
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource

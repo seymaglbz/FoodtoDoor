@@ -17,6 +17,7 @@ class ExploreViewController: StoreListViewController {
         super.viewDidLoad()
 
         loadStores()
+     
     }
     
     func loadStores() {

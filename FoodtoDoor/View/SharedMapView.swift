@@ -10,11 +10,11 @@ import UIKit
 import MapKit
 
 class SharedMapView: UIView {
-    let mapView = MKMapView()
+    var mapView = MKMapView()
     let addressLabel = UILabel()
     let confirmAddressButton = UIButton()
     let navBar = UINavigationBar()
-   
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         createSubviews()

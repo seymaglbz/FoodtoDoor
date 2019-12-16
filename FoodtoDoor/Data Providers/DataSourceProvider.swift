@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DataSourceProviderDelegate: class {
-    func selectedCell(row: Int)
+    func selectedCell(row: Int)    
 }
 
 class DataSourceProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
@@ -35,7 +35,7 @@ class DataSourceProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
+       if editingStyle == .delete{
             dataManager.deleteStore(at: indexPath.row)
             dataManager.saveFavorites(dataManager.stores)
             tableView.deleteRows(at: [indexPath], with: .fade)

@@ -9,6 +9,7 @@
 import Foundation
 
 struct Store: Codable {
+   
     var image: String
     var type: String
     var deliveryFee: Int?
