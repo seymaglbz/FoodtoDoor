@@ -17,6 +17,10 @@ struct Alert {
         DispatchQueue.main.async { vc.present(alert, animated: true, completion: nil)}
     }
     
+    static func showErrorMessage(on vc: UIViewController, with message: String) {
+         showBasicAlert(on: vc, with: "Something went wrong", message: message)
+     }
+    
     static func showUnableToRetrieveLocationAlert(on vc: UIViewController) {
         showBasicAlert(on: vc, with: "To be able to use the app please enable your location services.", message: "")
     }

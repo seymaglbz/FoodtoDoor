@@ -10,10 +10,10 @@ import UIKit
 import MapKit
 
 class SharedMapView: UIView {
-    var mapView = MKMapView()
-    let addressLabel = UILabel()
-    let confirmAddressButton = UIButton()
-    let navBar = UINavigationBar()
+    weak var mapView: MKMapView!
+    weak var navBar: UINavigationBar!
+    weak var addressLabel: UILabel!
+    weak var confirmAddressButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,54 +27,70 @@ class SharedMapView: UIView {
     
     func createSubviews() {
         backgroundColor = .systemBackground
-        configureNavBar()
-        configureMapView()
-        configureAddressLabel()
-        configureConfirmAddressButton()
+        
+        setupNavBar()
+        setupMapView()
+        setupAddressLabel()
+        setupConfirmAddressButton()        
     }
     
-    func configureNavBar() {
-        addSubview(navBar)
+    func setupNavBar() {
+        let navBar = UINavigationBar(frame: frame)
         navBar.translatesAutoresizingMaskIntoConstraints = false
-        navBar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        navBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        navBar.topAnchor.constraint(equalTo: topAnchor, constant: 44).isActive = true
-        navBar.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        
+        addSubview(navBar)
+        NSLayoutConstraint.activate([
+            navBar.topAnchor.constraint(equalTo: topAnchor, constant: 44),
+            navBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navBar.heightAnchor.constraint(equalToConstant: 44)
+        ])
         let navItem = UINavigationItem(title: "Choose an Address")
         navBar.setItems([navItem], animated: true)
+        self.navBar = navBar
     }
     
-    func configureMapView() {
-        addSubview(mapView)
+    func setupMapView() {
+        let mapView = MKMapView(frame: frame)
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        addSubview(mapView)
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: self.navBar.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+        self.mapView = mapView
     }
     
-    func configureAddressLabel() {
+    func setupAddressLabel() {
+        let addressLabel = UILabel(frame: frame)
         addSubview(addressLabel)
+        addressLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.textColor = .darkGray
         addressLabel.textAlignment = .center
-        addressLabel.translatesAutoresizingMaskIntoConstraints = false
-        addressLabel.topAnchor.constraint(equalTo: mapView.bottomAnchor).isActive = true
-        addressLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        addressLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        addressLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            addressLabel.topAnchor.constraint(equalTo: self.mapView.bottomAnchor),
+            addressLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            addressLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            addressLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        self.addressLabel = addressLabel
     }
     
-    func configureConfirmAddressButton() {
+    func setupConfirmAddressButton() {
+        let confirmAddressButton = UIButton(frame: frame)
         addSubview(confirmAddressButton)
         confirmAddressButton.backgroundColor = .red
         confirmAddressButton.setTitleColor(.white, for: .normal)
         confirmAddressButton.setTitle("Confirm Address", for: .normal)
         confirmAddressButton.translatesAutoresizingMaskIntoConstraints = false
-        confirmAddressButton.topAnchor.constraint(equalTo: addressLabel.bottomAnchor).isActive = true
-        confirmAddressButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        confirmAddressButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        confirmAddressButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14).isActive = true
-        confirmAddressButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        NSLayoutConstraint.activate([
+            confirmAddressButton.topAnchor.constraint(equalTo: self.addressLabel.bottomAnchor),
+            confirmAddressButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            confirmAddressButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            confirmAddressButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14),
+            confirmAddressButton.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        self.confirmAddressButton = confirmAddressButton
     }
 }
 

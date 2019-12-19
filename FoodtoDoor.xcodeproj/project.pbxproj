@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C76BE25123AA26130088DEDA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C76BE25023AA26130088DEDA /* MapKit.framework */; };
+		C76BE25323AA2DFD0088DEDA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C76BE25223AA2DFC0088DEDA /* CoreLocation.framework */; };
 		C7E88D2723A77B840016C5A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D2623A77B840016C5A1 /* AppDelegate.swift */; };
 		C7E88D2923A77B840016C5A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D2823A77B840016C5A1 /* SceneDelegate.swift */; };
 		C7E88D3023A77B850016C5A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7E88D2F23A77B850016C5A1 /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C76BE25023AA26130088DEDA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C76BE25223AA2DFC0088DEDA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C7E88D2323A77B840016C5A1 /* FoodtoDoor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodtoDoor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E88D2623A77B840016C5A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7E88D2823A77B840016C5A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,17 +67,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76BE25323AA2DFD0088DEDA /* CoreLocation.framework in Frameworks */,
+				C76BE25123AA26130088DEDA /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C76BE24F23AA26130088DEDA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C76BE25223AA2DFC0088DEDA /* CoreLocation.framework */,
+				C76BE25023AA26130088DEDA /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C7E88D1A23A77B840016C5A1 = {
 			isa = PBXGroup;
 			children = (
 				C7E88D2523A77B840016C5A1 /* FoodtoDoor */,
 				C7E88D2423A77B840016C5A1 /* Products */,
+				C76BE24F23AA26130088DEDA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

@@ -18,15 +18,31 @@ class NetworkManager {
     private init (){}
     
     //MARK: - Store Networking
-    func fetchStores(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completed: @escaping ([Store]?)-> Void) {
+    
+    
+    #warning("closure'a yeni bir parameter ekle (string?)")
+    func fetchStores(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completed: @escaping (([Store]?, String?)-> Void)) {
         let urlString = "\(storeURL)lat=\(latitude)&lng=\(longitude)"
         guard let url = URL(string: urlString) else {return}
         let session = URLSession(configuration: .default)
         print(urlString)
         
         let task = session.dataTask(with: url){(data, response, error) in
-            guard error == nil else {return}
-            guard let safeData = data else {return}
+         //   guard error == nil else {return}
+            
+            if error != nil {
+          //      print(error)
+                return
+            }
+            
+            
+            guard let safeData = data else {
+                #warning("Write errorMessage here")
+                print("Problem")
+//                let errorMessage = "Couldn't load the stores. Please try again later..."
+//                completed(nil, errorMessage)
+                
+                return}
             
             do {
                 let jsonResponse = try JSONSerialization.jsonObject(with: safeData, options: [])
@@ -37,8 +53,11 @@ class NetworkManager {
                     let store = Store(data: jsonArray[i])
                     storeArray.append(store)
                 }
-                completed(storeArray)
+                completed(storeArray, nil)
             } catch {
+                  let errorMessage = "Couldn't load the stores. Please try again later..."
+                completed(nil, errorMessage)
+                print(error)
                 print("Couldn't parse JSON")
             }
         }

@@ -11,27 +11,35 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-    private let locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     private let regionInMeters: Double = 200
     private var previousLocation: CLLocation?
     private var placemark: CLPlacemark?
     private var geoCoder: CLGeocoder!
-    var sharedMapView = SharedMapView()
+    
+    weak  var sharedMapView: SharedMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
         checkLocationServices()
     }
     
-    func setupUI() {
-        view = sharedMapView
+    override func loadView() {
+        super.loadView()
+        
+        setupUI()
+        
         sharedMapView.mapView.delegate = self
         sharedMapView.confirmAddressButton.addTarget(self, action: #selector(goToStores), for: .touchUpInside)
-        
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(addPin(_:)))
         sharedMapView.mapView.addGestureRecognizer(longPress)
+    }
+    
+    func setupUI() {
+        let sharedMapView = SharedMapView(frame: self.view.frame)
+        self.sharedMapView = sharedMapView
+        self.view = self.sharedMapView
     }
     
     @objc func addPin(_ sender: UILongPressGestureRecognizer) {
@@ -44,11 +52,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         guard let placemark = placemark else {return}
         annotation.title = placemark.subThoroughfare
         annotation.subtitle = placemark.thoroughfare
-        previousLocation = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
         
         sharedMapView.mapView.removeAnnotations(sharedMapView.mapView.annotations)
         sharedMapView.mapView.addAnnotation(annotation)
         
+        previousLocation = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
         guard let previousLocation = previousLocation else {return}
         reverseGeoCode(from: previousLocation)
     }
@@ -79,7 +87,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus(){
         case .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
             startTrackingUserLocation()
         case .denied:
             Alert.showUnableToRetrieveLocationAlert(on: self)
@@ -106,8 +113,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func centerViewOnUserLocation() {
-        guard let location = locationManager.location?.coordinate else {return}
-        let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        guard let mapLocation = locationManager.location?.coordinate else {return}
+        let region = MKCoordinateRegion.init(center: mapLocation, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
         sharedMapView.mapView.setRegion(region, animated: true)
     }
     
@@ -145,15 +152,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
 //MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {return}
-        locationManager.stopUpdatingLocation()
-        
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        sharedMapView.mapView.setRegion(region, animated: true)
-        reverseGeoCode(from: location)
-    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
