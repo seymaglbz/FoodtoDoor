@@ -24,6 +24,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     func setupTabBarItems() {
         let exploreVC = ExploreViewController()
         exploreVC.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "tab-explore"), tag: 0)
+        
         let favoritesVC = FavoritesViewController()
         favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "tab-star"), tag: 1)
         let viewControllersList = [exploreVC, favoritesVC]
@@ -31,11 +32,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         delegate = self
         self.tabBar.tintColor = .red
-        selectedIndex = 0
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
+        #warning("Unbalanced erroru veriyor")
         if let navController = tabBarController.viewControllers?[0] as? UINavigationController{
             navController.popToRootViewController(animated: true)
         }

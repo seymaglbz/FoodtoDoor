@@ -11,13 +11,13 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
+    
     let locationManager = CLLocationManager()
     private let regionInMeters: Double = 200
     private var previousLocation: CLLocation?
     private var placemark: CLPlacemark?
     private var geoCoder: CLGeocoder!
-    
-    weak  var sharedMapView: SharedMapView!
+    weak var sharedMapView: SharedMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +65,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let tabBarController = TabBarController()
         guard let navigationController = tabBarController.viewControllers?.first as? UINavigationController else {return}
         guard let exploreVC = navigationController.viewControllers.first as? ExploreViewController else {return}
-        exploreVC.userLocation = previousLocation
         
+        exploreVC.userLocation = previousLocation        
         present(tabBarController, animated: true, completion: nil)
     }
     
@@ -75,7 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             setupLocationManager()
             checkLocationAuthorization()
         }else{
-            Alert.showUnableToRetrieveLocationAlert(on: self)
+            Alert.showUnableToRetrieveLocation(on: self)
         }
     }
     
@@ -89,13 +89,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         case .authorizedWhenInUse:
             startTrackingUserLocation()
         case .denied:
-            Alert.showUnableToRetrieveLocationAlert(on: self)
+            Alert.showUnableToRetrieveLocation(on: self)
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
             break
         case .restricted:
-            Alert.showUnableToRetrieveLocationAlert(on: self)
+            Alert.showUnableToRetrieveLocation(on: self)
             break
         case .authorizedAlways:
             break
@@ -131,11 +131,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             guard let self = self else {return}
             
             guard error == nil else {
-                Alert.showUnableToRetrieveLocationAlert(on: self)
+                DispatchQueue.main.async {
+                    Alert.showUnableToRetrieveLocation(on: self)
+                }
                 return
             }
             guard let placemark = placemarks?.first else{
-                Alert.showUnableToRetrieveLocationAlert(on: self)
+                DispatchQueue.main.async {
+                    Alert.showUnableToRetrieveLocation(on: self)
+                }
                 return
             }
             

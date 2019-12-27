@@ -12,13 +12,28 @@ class FavoritesViewController: StoreListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.dataManager.isEditable = true
         
-        self.dataManager.loadFavorites()
-    }
-    
+        do {
+            try self.dataManager.loadFavorites()
+        } catch {
+            DispatchQueue.main.async {
+                Alert.showUnableToLoadFavorites(on: self)
+            }
+        }
+   }
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.dataManager.loadFavorites()
+    
+        do {
+            try self.dataManager.loadFavorites()
+        } catch {
+            DispatchQueue.main.async {
+                Alert.showUnableToLoadFavorites(on: self)
+            }
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

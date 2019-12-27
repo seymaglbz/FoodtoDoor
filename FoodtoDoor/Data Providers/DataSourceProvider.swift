@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DataSourceProviderDelegate: class {
-    func selectedCell(row: Int)    
+    func selectedCell(row: Int)
 }
 
 class DataSourceProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
@@ -31,11 +31,19 @@ class DataSourceProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cells.storeCell) as? StoreCell else {fatalError()}
         let store = dataManager.store(at: indexPath.row)
         cell.set(store)
+        
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {        
+        if dataManager.isEditable == false {
+            return false
+        }
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-       if editingStyle == .delete{
+        if editingStyle == .delete{
             dataManager.deleteStore(at: indexPath.row)
             dataManager.saveFavorites(dataManager.stores)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -47,6 +55,9 @@ class DataSourceProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+
+
 
 
 

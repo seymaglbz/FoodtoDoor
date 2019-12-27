@@ -68,14 +68,13 @@ class StoreListViewController: UIViewController {
 
 //MARK: - DataSourceProviderDelegate, SearchBarDelegate
 extension StoreListViewController: DataSourceProviderDelegate, SearchBarDelegate{
-   
     
     func selectedCell(row: Int) {
         let storeVC = StoreViewController()
         storeVC.selectedStore = dataManager.isSearching ? dataManager.searchedStores[row] : dataManager.stores[row]
         navigationController?.pushViewController(storeVC, animated: true)
     }
-   
+    
     func searchCancelButtonClicked() {
         navigationItem.titleView = nil
         setupNavBar()

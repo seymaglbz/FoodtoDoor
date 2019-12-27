@@ -30,6 +30,7 @@ class StoreCell: UITableViewCell {
         configureLabels()
         setStoreImageConstraints()
         setLabelConstraints()
+     
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +44,7 @@ class StoreCell: UITableViewCell {
         storeTypeLabel.textColor = .darkGray
         deliveryTypeLabel.textColor = .darkGray
         deliveryTimeLabel.textColor = .darkGray
+        
     }
     
     private func setStoreImageConstraints() {
@@ -83,13 +85,23 @@ class StoreCell: UITableViewCell {
     func set(_ store: Store) {
         let urlString = store.image
         guard let url = URL(string: urlString) else {return}
-        guard let data = try? Data(contentsOf: url) else {return}
-        guard let image = UIImage(data: data) else {return}
+        do {
+            let data = try Data(contentsOf: url)
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.storeImage.image = image
+            }
+        }catch {
+            let image = UIImage(named: "FoodToDoorPlaceHolder")
+            DispatchQueue.main.async {
+                self.storeImage.image = image
+            }
+        }
+        
         guard let deliveryTime = store.deliveryTime else {return}
         guard let deliveryFee = store.deliveryFee else {return}
         
         DispatchQueue.main.async {
-            self.storeImage.image = image
             self.storeImage.contentMode = .scaleAspectFit
             self.storeNameLabel.text = store.business.name
             self.storeTypeLabel.text = store.type

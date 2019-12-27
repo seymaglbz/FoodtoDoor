@@ -9,7 +9,7 @@
 import UIKit
 
 class StoreViewController: UIViewController {
-    
+  
     var sharedStoreView = SharedStoreView()
     private var menuArray: [String] = []
     var selectedStore: Store?
@@ -34,14 +34,28 @@ class StoreViewController: UIViewController {
         guard let selectedStore = selectedStore else {return}
         let urlString = selectedStore.image
         guard let url = URL(string: urlString) else {return}
-        guard let data = try? Data(contentsOf: url) else {return}
-        guard let image = UIImage(data: data) else {return}
+        do {
+            let data = try Data(contentsOf: url)
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.sharedStoreView.storeImage.image = image
+            }
+        } catch {
+            let image = UIImage(named: "FoodToDoorPlaceHolder")
+            DispatchQueue.main.async {
+                self.sharedStoreView.storeImage.image = image
+            }
+        }
+        
         guard let deliveryTime = selectedStore.deliveryTime, let deliveryFee = selectedStore.deliveryFee else {return}
         guard let tabBarController = self.tabBarController else {return}
         
-        NetworkManager.shared.fetchMenu(with: selectedStore.id) { (menus) in
+        NetworkManager.shared.fetchMenu(with: selectedStore.id) { menus in
             guard let menus = menus else {
-                Alert.showUnableToRetrieveMenusAlert(on: self)
+                
+                DispatchQueue.main.async {
+                    Alert.showUnableToRetrieveMenus(on: self)
+                }
                 return
             }
             self.menuArray = menus
@@ -52,7 +66,6 @@ class StoreViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.navigationItem.title = selectedStore.business.name
-            self.sharedStoreView.storeImage.image = image
             self.sharedStoreView.deliveryLabel.text = selectedStore.deliveryFee == 0 ? "Free Delivery in \(deliveryTime) min" : "Delivery for $\(deliveryFee) in \(deliveryTime) min"
             
             if deliveryTime == 0{
@@ -65,11 +78,15 @@ class StoreViewController: UIViewController {
     
     func loadFavoriteStores() {
         guard let navController = tabBarController?.viewControllers?[secondVC] as? UINavigationController else {return}
-        guard let favoriteVC = navController.viewControllers.first as? FavoritesViewController else {
-            Alert.showUnableToLoadFavoritesAlert(on: self)
-            return
+        guard let favoriteVC = navController.viewControllers.first as? FavoritesViewController else {return}
+        
+        do {
+            try favoriteVC.dataManager.loadFavorites()
+        } catch {
+            DispatchQueue.main.async {
+                Alert.showUnableToLoadFavorites(on: self)
+            }
         }
-        favoriteVC.dataManager.loadFavorites()
     }
     
     @objc func addToFavoritesButtonTapped() {
@@ -77,11 +94,7 @@ class StoreViewController: UIViewController {
         
         guard let navController = tabBarController?.viewControllers?[secondVC] as? UINavigationController else {return}
         guard let favoriteVC = navController.viewControllers.first as? FavoritesViewController else {return}
-        guard let selectedStore = selectedStore else {
-            DispatchQueue.main.async {
-                Alert.showUnableToSaveToFavoritesAlert(on: self)
-            }
-            return}
+        guard let selectedStore = selectedStore else {return}
         for store in favoriteVC.dataManager.stores where store.id == selectedStore.id {return}
         favoriteVC.dataManager.stores.append(selectedStore)
         dataManager.saveFavorites(favoriteVC.dataManager.stores)

@@ -15,6 +15,7 @@ class DataManager {
     var searchedStores: [Store] = []
     var isSearching = false
     var searchedStoresNames: [String] = []
+    var isEditable: Bool?
     let defaults = UserDefaults.standard
     var storesCount: Int {
         return isSearching ? searchedStores.count : stores.count
@@ -29,13 +30,13 @@ class DataManager {
         stores.remove(at: index)
     }
     
-    func saveFavorites(_ storesArray : [Store]) {
+    func saveFavorites(_ storesArray : [Store])  {
         let jsonEncoder = JSONEncoder()
         guard let savedData = try? jsonEncoder.encode(storesArray) else {return}
         defaults.set(savedData, forKey: favoriteStores)
     }
     
-    func loadFavorites() {
+    func loadFavorites() throws {
         DispatchQueue.global(qos: .background).async {
             guard let favoriteStores = self.defaults.object(forKey: self.favoriteStores) as? Data else {return}
             let jsonDecoder = JSONDecoder()
