@@ -32,6 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         sharedMapView.mapView.delegate = self
         sharedMapView.confirmAddressButton.addTarget(self, action: #selector(goToStores), for: .touchUpInside)
+       
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(addPin(_:)))
         sharedMapView.mapView.addGestureRecognizer(longPress)
     }
@@ -75,7 +76,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             setupLocationManager()
             checkLocationAuthorization()
         }else{
-            Alert.showUnableToRetrieveLocation(on: self)
+            presentFTDAlertOnMainThread(title: "Something went wrong!", message: FTDError.unableToRetrieveLocation.rawValue, buttonTitle:"Ok")
         }
     }
     
@@ -89,13 +90,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         case .authorizedWhenInUse:
             startTrackingUserLocation()
         case .denied:
-            Alert.showUnableToRetrieveLocation(on: self)
+            presentFTDAlertOnMainThread(title: "Something went wrong!", message: FTDError.unableToRetrieveLocation.rawValue, buttonTitle:"Ok")
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
             break
         case .restricted:
-            Alert.showUnableToRetrieveLocation(on: self)
+            presentFTDAlertOnMainThread(title: "Something went wrong!", message: FTDError.unableToRetrieveLocation.rawValue, buttonTitle:"Ok")
             break
         case .authorizedAlways:
             break
@@ -132,13 +133,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             guard error == nil else {
                 DispatchQueue.main.async {
-                    Alert.showUnableToRetrieveLocation(on: self)
+                    self.presentFTDAlertOnMainThread(title: "Something went wrong!", message: FTDError.unableToRetrieveLocation.rawValue, buttonTitle:"Ok")
                 }
                 return
             }
             guard let placemark = placemarks?.first else{
                 DispatchQueue.main.async {
-                    Alert.showUnableToRetrieveLocation(on: self)
+                    self.presentFTDAlertOnMainThread(title: "Something went wrong!", message: FTDError.unableToRetrieveLocation.rawValue, buttonTitle:"Ok")
                 }
                 return
             }

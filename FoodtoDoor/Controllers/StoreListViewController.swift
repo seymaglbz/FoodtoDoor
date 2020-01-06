@@ -23,13 +23,13 @@ class StoreListViewController: UIViewController {
         setupUI()
     }
     
-    func setupUI() {
+    private func setupUI() {
         setupTableView()
         setupSearchBar()
         setupNavBar()
     }
-    
-    func setupTableView() {
+  
+    private func setupTableView() {
         view.addSubview(tableView)
         tableView.dataSource = dataSourceProvider
         tableView.delegate = dataSourceProvider
@@ -39,12 +39,12 @@ class StoreListViewController: UIViewController {
         tableView.pin(to: view)
     }
     
-    func setupSearchBar() {
+    private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBarManager.delegate = self
     }
     
-    func setupNavBar() {
+    private func setupNavBar() {
         navigationController?.navigationBar.tintColor = .red
         navigationItem.title = "Food to Door"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav-search"), style: .plain, target: self, action: #selector(searchForStores))
@@ -64,6 +64,7 @@ class StoreListViewController: UIViewController {
         searchBar.returnKeyType = UIReturnKeyType.done
         navigationItem.titleView = searchBar
     }
+
 }
 
 //MARK: - DataSourceProviderDelegate, SearchBarDelegate

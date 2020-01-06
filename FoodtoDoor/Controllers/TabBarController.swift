@@ -21,7 +21,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         setupTabBarItems()
     }
     
-    func setupTabBarItems() {
+    private func setupTabBarItems() {
         let exploreVC = ExploreViewController()
         exploreVC.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "tab-explore"), tag: 0)
         
@@ -36,7 +36,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
-        #warning("Unbalanced erroru veriyor")
         if let navController = tabBarController.viewControllers?[0] as? UINavigationController{
             navController.popToRootViewController(animated: true)
         }

@@ -17,7 +17,7 @@ class DataSourceProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     private let dataManager: DataManager
     var delegate: DataSourceProviderDelegate?
     
-    init(dataManager: DataManager) {
+    init(dataManager: DataManager) {        
         self.dataManager = dataManager
         super.init()
     }

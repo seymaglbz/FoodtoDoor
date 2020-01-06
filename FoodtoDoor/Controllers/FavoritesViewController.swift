@@ -19,7 +19,7 @@ class FavoritesViewController: StoreListViewController {
             try self.dataManager.loadFavorites()
         } catch {
             DispatchQueue.main.async {
-                Alert.showUnableToLoadFavorites(on: self)
+                self.presentFTDAlertOnMainThread(title: "Something went wrong", message: FTDError.unableToLoadFavorites.rawValue, buttonTitle: "Ok")
             }
         }
    }
@@ -31,7 +31,7 @@ class FavoritesViewController: StoreListViewController {
             try self.dataManager.loadFavorites()
         } catch {
             DispatchQueue.main.async {
-                Alert.showUnableToLoadFavorites(on: self)
+                self.presentFTDAlertOnMainThread(title: "Something went wrong", message: FTDError.unableToLoadFavorites.rawValue, buttonTitle: "Ok")
             }
         }
         DispatchQueue.main.async {

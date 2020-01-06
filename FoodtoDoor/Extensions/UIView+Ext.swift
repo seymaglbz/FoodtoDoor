@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    //It pins everything to the edge
+    
     func pin(to superView: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         topAnchor.constraint(equalTo: superView.topAnchor).isActive = true

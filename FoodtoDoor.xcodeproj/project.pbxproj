@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		C762DCC423AFBE4C00AA8668 /* FoodToDoorPlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = C762DCC323AFBE4C00AA8668 /* FoodToDoorPlaceHolder.png */; };
+		C765013D23C3504D00D6EDFD /* FTDAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765013C23C3504D00D6EDFD /* FTDAlertVC.swift */; };
+		C765013F23C350A100D6EDFD /* FTDAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765013E23C350A100D6EDFD /* FTDAlertContainerView.swift */; };
+		C765014223C3521300D6EDFD /* FTDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765014123C3521300D6EDFD /* FTDButton.swift */; };
+		C765014423C3537600D6EDFD /* FTDTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765014323C3537600D6EDFD /* FTDTitleLabel.swift */; };
+		C765014623C3548B00D6EDFD /* FTDBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765014523C3548B00D6EDFD /* FTDBodyLabel.swift */; };
+		C765014823C36AF400D6EDFD /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765014723C36AF400D6EDFD /* UIViewController+Ext.swift */; };
+		C765014C23C3724C00D6EDFD /* FTDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765014B23C3724C00D6EDFD /* FTDError.swift */; };
 		C76BE25123AA26130088DEDA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C76BE25023AA26130088DEDA /* MapKit.framework */; };
 		C76BE25323AA2DFD0088DEDA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C76BE25223AA2DFC0088DEDA /* CoreLocation.framework */; };
 		C7E88D2723A77B840016C5A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D2623A77B840016C5A1 /* AppDelegate.swift */; };
 		C7E88D2923A77B840016C5A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D2823A77B840016C5A1 /* SceneDelegate.swift */; };
 		C7E88D3023A77B850016C5A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7E88D2F23A77B850016C5A1 /* Assets.xcassets */; };
 		C7E88D3323A77B850016C5A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E88D3123A77B850016C5A1 /* LaunchScreen.storyboard */; };
-		C7E88D3B23A77BF30016C5A1 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D3A23A77BF30016C5A1 /* Alert.swift */; };
 		C7E88D3D23A77C140016C5A1 /* SharedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D3C23A77C140016C5A1 /* SharedMapView.swift */; };
 		C7E88D4023A77C3B0016C5A1 /* SharedStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D3F23A77C3B0016C5A1 /* SharedStoreView.swift */; };
 		C7E88D4223A77C560016C5A1 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E88D4123A77C560016C5A1 /* FavoriteButton.swift */; };
@@ -36,6 +42,13 @@
 
 /* Begin PBXFileReference section */
 		C762DCC323AFBE4C00AA8668 /* FoodToDoorPlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FoodToDoorPlaceHolder.png; sourceTree = "<group>"; };
+		C765013C23C3504D00D6EDFD /* FTDAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDAlertVC.swift; sourceTree = "<group>"; };
+		C765013E23C350A100D6EDFD /* FTDAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDAlertContainerView.swift; sourceTree = "<group>"; };
+		C765014123C3521300D6EDFD /* FTDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDButton.swift; sourceTree = "<group>"; };
+		C765014323C3537600D6EDFD /* FTDTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDTitleLabel.swift; sourceTree = "<group>"; };
+		C765014523C3548B00D6EDFD /* FTDBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDBodyLabel.swift; sourceTree = "<group>"; };
+		C765014723C36AF400D6EDFD /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		C765014B23C3724C00D6EDFD /* FTDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDError.swift; sourceTree = "<group>"; };
 		C76BE25023AA26130088DEDA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C76BE25223AA2DFC0088DEDA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C7E88D2323A77B840016C5A1 /* FoodtoDoor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodtoDoor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,7 +57,6 @@
 		C7E88D2F23A77B850016C5A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7E88D3223A77B850016C5A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7E88D3423A77B850016C5A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7E88D3A23A77BF30016C5A1 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C7E88D3C23A77C140016C5A1 /* SharedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedMapView.swift; sourceTree = "<group>"; };
 		C7E88D3F23A77C3B0016C5A1 /* SharedStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStoreView.swift; sourceTree = "<group>"; };
 		C7E88D4123A77C560016C5A1 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
@@ -77,6 +89,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C765014023C3511E00D6EDFD /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				C765013C23C3504D00D6EDFD /* FTDAlertVC.swift */,
+				C765013E23C350A100D6EDFD /* FTDAlertContainerView.swift */,
+				C765014123C3521300D6EDFD /* FTDButton.swift */,
+				C765014323C3537600D6EDFD /* FTDTitleLabel.swift */,
+				C765014523C3548B00D6EDFD /* FTDBodyLabel.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		C765014923C3721700D6EDFD /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				C7E88D2623A77B840016C5A1 /* AppDelegate.swift */,
+				C7E88D2823A77B840016C5A1 /* SceneDelegate.swift */,
+				C7E88D2F23A77B850016C5A1 /* Assets.xcassets */,
+				C762DCC323AFBE4C00AA8668 /* FoodToDoorPlaceHolder.png */,
+				C7E88D3123A77B850016C5A1 /* LaunchScreen.storyboard */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		C765014A23C3723500D6EDFD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C765014B23C3724C00D6EDFD /* FTDError.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		C76BE24F23AA26130088DEDA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,17 +150,13 @@
 		C7E88D2523A77B840016C5A1 /* FoodtoDoor */ = {
 			isa = PBXGroup;
 			children = (
-				C7E88D2623A77B840016C5A1 /* AppDelegate.swift */,
-				C7E88D2823A77B840016C5A1 /* SceneDelegate.swift */,
-				C7E88D3A23A77BF30016C5A1 /* Alert.swift */,
+				C765014A23C3723500D6EDFD /* Utilities */,
 				C7E88D5423A77D5D0016C5A1 /* Extensions */,
 				C7E88D5723A77D810016C5A1 /* Data Providers */,
 				C7E88D5E23A77DDC0016C5A1 /* Model */,
 				C7E88D3E23A77C180016C5A1 /* View */,
 				C7E88D4723A77C8E0016C5A1 /* Controllers */,
-				C7E88D2F23A77B850016C5A1 /* Assets.xcassets */,
-				C762DCC323AFBE4C00AA8668 /* FoodToDoorPlaceHolder.png */,
-				C7E88D3123A77B850016C5A1 /* LaunchScreen.storyboard */,
+				C765014923C3721700D6EDFD /* Support */,
 				C7E88D3423A77B850016C5A1 /* Info.plist */,
 			);
 			path = FoodtoDoor;
@@ -125,6 +165,7 @@
 		C7E88D3E23A77C180016C5A1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C765014023C3511E00D6EDFD /* Custom Views */,
 				C7E88D3C23A77C140016C5A1 /* SharedMapView.swift */,
 				C7E88D3F23A77C3B0016C5A1 /* SharedStoreView.swift */,
 				C7E88D4123A77C560016C5A1 /* FavoriteButton.swift */,
@@ -150,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				C7E88D5223A77D510016C5A1 /* UIView+Ext.swift */,
+				C765014723C36AF400D6EDFD /* UIViewController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -248,22 +290,28 @@
 				C7E88D5D23A77DD90016C5A1 /* NetworkManager.swift in Sources */,
 				C7E88D4023A77C3B0016C5A1 /* SharedStoreView.swift in Sources */,
 				C7E88D5923A77D940016C5A1 /* DataManager.swift in Sources */,
-				C7E88D3B23A77BF30016C5A1 /* Alert.swift in Sources */,
 				C7E88D5623A77D740016C5A1 /* SearchBar.swift in Sources */,
 				C7E88D2723A77B840016C5A1 /* AppDelegate.swift in Sources */,
 				C7E88D5B23A77DAF0016C5A1 /* DataSourceProvider.swift in Sources */,
 				C7E88D4923A77CBF0016C5A1 /* TabBarController.swift in Sources */,
+				C765014623C3548B00D6EDFD /* FTDBodyLabel.swift in Sources */,
 				C7E88D5323A77D510016C5A1 /* UIView+Ext.swift in Sources */,
 				C7E88D4423A77C700016C5A1 /* StoreCell.swift in Sources */,
 				C7E88D4223A77C560016C5A1 /* FavoriteButton.swift in Sources */,
 				C7E88D5123A77D2B0016C5A1 /* StoreViewController.swift in Sources */,
+				C765013F23C350A100D6EDFD /* FTDAlertContainerView.swift in Sources */,
+				C765014823C36AF400D6EDFD /* UIViewController+Ext.swift in Sources */,
 				C7E88D4B23A77CDB0016C5A1 /* StoreListViewController.swift in Sources */,
+				C765014223C3521300D6EDFD /* FTDButton.swift in Sources */,
 				C7E88D3D23A77C140016C5A1 /* SharedMapView.swift in Sources */,
+				C765013D23C3504D00D6EDFD /* FTDAlertVC.swift in Sources */,
 				C7E88D6223A77E0C0016C5A1 /* Menu.swift in Sources */,
 				C7E88D6023A77DF70016C5A1 /* Store.swift in Sources */,
+				C765014C23C3724C00D6EDFD /* FTDError.swift in Sources */,
 				C7E88D2923A77B840016C5A1 /* SceneDelegate.swift in Sources */,
 				C7E88D4D23A77CF50016C5A1 /* ExploreViewController.swift in Sources */,
 				C7E88D4F23A77D0F0016C5A1 /* FavoritesViewController.swift in Sources */,
+				C765014423C3537600D6EDFD /* FTDTitleLabel.swift in Sources */,
 				C7E88D4623A77C8B0016C5A1 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

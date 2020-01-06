@@ -6,11 +6,11 @@
 //  Copyright © 2019 Şeyma Gılbaz. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import CoreLocation
 
 class DataManager {
+    
     var stores: [Store] = []
     var searchedStores: [Store] = []
     var isSearching = false

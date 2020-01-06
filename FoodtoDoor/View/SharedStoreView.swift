@@ -22,11 +22,10 @@ class SharedStoreView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        createSubviews()
+         fatalError("init(coder:) has not been implemented")
     }
     
-    func createSubviews() {
+    private func createSubviews() {
         backgroundColor = .systemBackground
         
         setupImageView()
@@ -36,7 +35,7 @@ class SharedStoreView: UIView {
         setupTableView()
     }
     
-    func setupImageView() {
+    private func setupImageView() {
         addSubview(storeImage)
         storeImage.translatesAutoresizingMaskIntoConstraints = false
         storeImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -46,7 +45,7 @@ class SharedStoreView: UIView {
         storeImage.contentMode = .scaleAspectFit
     }
     
-    func setupDeliveryLabel() {
+    private func setupDeliveryLabel() {
         addSubview(deliveryLabel)
         deliveryLabel.textAlignment = .center
         deliveryLabel.textColor = .darkGray
@@ -57,7 +56,7 @@ class SharedStoreView: UIView {
         deliveryLabel.topAnchor.constraint(equalTo: storeImage.bottomAnchor, constant: 8).isActive = true
     }
     
-    func setupAddToFavoritesButton() {
+    private func setupAddToFavoritesButton() {
         addSubview(addToFavoritesButton)
         addToFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
         addToFavoritesButton.heightAnchor.constraint(equalToConstant: 49).isActive = true
@@ -66,7 +65,7 @@ class SharedStoreView: UIView {
         addToFavoritesButton.topAnchor.constraint(equalTo: deliveryLabel.bottomAnchor, constant: 23).isActive = true
     }
     
-    func setupMenuLabel() {
+    private func setupMenuLabel() {
         addSubview(menuLabel)
         menuLabel.text = "     Menu"
         menuLabel.textColor = .darkGray
@@ -78,7 +77,7 @@ class SharedStoreView: UIView {
         menuLabel.heightAnchor.constraint(equalToConstant: 43).isActive = true
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         addSubview(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "menuCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false

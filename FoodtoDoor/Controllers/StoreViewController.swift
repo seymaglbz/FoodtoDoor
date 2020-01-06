@@ -9,7 +9,7 @@
 import UIKit
 
 class StoreViewController: UIViewController {
-  
+    
     var sharedStoreView = SharedStoreView()
     private var menuArray: [String] = []
     var selectedStore: Store?
@@ -50,17 +50,17 @@ class StoreViewController: UIViewController {
         guard let deliveryTime = selectedStore.deliveryTime, let deliveryFee = selectedStore.deliveryFee else {return}
         guard let tabBarController = self.tabBarController else {return}
         
-        NetworkManager.shared.fetchMenu(with: selectedStore.id) { menus in
-            guard let menus = menus else {
-                
+        NetworkManager.shared.fetchMenu(with: selectedStore.id) { result in
+            
+            switch result {
+            case .success(let menus):
+                self.menuArray = menus
                 DispatchQueue.main.async {
-                    Alert.showUnableToRetrieveMenus(on: self)
+                    self.sharedStoreView.tableView.reloadData()
                 }
-                return
-            }
-            self.menuArray = menus
-            DispatchQueue.main.async {
-                self.sharedStoreView.tableView.reloadData()
+            case .failure(let error):
+                self.presentFTDAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                
             }
         }
         
@@ -84,7 +84,7 @@ class StoreViewController: UIViewController {
             try favoriteVC.dataManager.loadFavorites()
         } catch {
             DispatchQueue.main.async {
-                Alert.showUnableToLoadFavorites(on: self)
+                self.presentFTDAlertOnMainThread(title: "Something went wrong", message: FTDError.unableToLoadFavorites.rawValue, buttonTitle: "Ok")
             }
         }
     }

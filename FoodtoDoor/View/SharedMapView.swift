@@ -21,11 +21,10 @@ class SharedMapView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        createSubviews()
+         fatalError("init(coder:) has not been implemented")
     }
     
-    func createSubviews() {
+    private func createSubviews() {
         backgroundColor = .systemBackground
         
         setupNavBar()
@@ -34,7 +33,7 @@ class SharedMapView: UIView {
         setupConfirmAddressButton()        
     }
     
-    func setupNavBar() {
+    private func setupNavBar() {
         let navBar = UINavigationBar(frame: frame)
         navBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(navBar)
@@ -49,7 +48,7 @@ class SharedMapView: UIView {
         self.navBar = navBar
     }
     
-    func setupMapView() {
+    private func setupMapView() {
         let mapView = MKMapView(frame: frame)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mapView)
@@ -61,7 +60,7 @@ class SharedMapView: UIView {
         self.mapView = mapView
     }
     
-    func setupAddressLabel() {
+    private func setupAddressLabel() {
         let addressLabel = UILabel(frame: frame)
         addSubview(addressLabel)
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +75,7 @@ class SharedMapView: UIView {
         self.addressLabel = addressLabel
     }
     
-    func setupConfirmAddressButton() {
+    private func setupConfirmAddressButton() {
         let confirmAddressButton = UIButton(frame: frame)
         addSubview(confirmAddressButton)
         confirmAddressButton.backgroundColor = .red

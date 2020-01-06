@@ -19,16 +19,30 @@ class NetworkManager {
     private init (){}
     
     //MARK: - Store Networking
-    func fetchStores(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completed: @escaping ([Store]?)-> Void) {
+    
+    func fetchStores(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completed: @escaping (Result<[Store], FTDError>)-> Void) {
         
-        let urlString = "\(storeURL)lat=\(latitude)&lng=\(longitude)"
-        guard let url = URL(string: urlString) else {return}
-        let session = URLSession(configuration: .default)
-        print(urlString)
+        let endPoint = "\(storeURL)lat=\(latitude)&lng=\(longitude)"
+        guard let url = URL(string: endPoint) else {
+            completed(.failure(.unableToRetrieveStores))
+            return
+        }
+        print(endPoint)
         
-        let task = session.dataTask(with: url){(data, response, error) in
-            guard error == nil else {return}
-            guard let safeData = data else {return}
+        let task = URLSession.shared.dataTask(with: url){data, response, error in
+            
+            if let _ = error {
+                completed(.failure(.unableToRetrieveStores))
+                return
+            }
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            guard let safeData = data else {
+                completed(.failure(.unableToRetrieveStores))
+                return
+            }
             
             do {
                 let jsonResponse = try JSONSerialization.jsonObject(with: safeData, options: [])
@@ -39,25 +53,35 @@ class NetworkManager {
                     let store = Store(data: jsonArray[i])
                     storeArray.append(store)
                 }
-                completed(storeArray)
+                completed(.success(storeArray))
             } catch {
-                completed(nil)
+                completed(.failure(.unableToRetrieveStores))
             }
         }
         task.resume()
     }
     
     //MARK: - Menu Networking
-    func fetchMenu(with id: Int, completed: @escaping ([String]?)-> Void) {
+    func fetchMenu(with id: Int, completed: @escaping (Result<[String], FTDError>)-> Void) {
         
-        let urlString = "\(menuURL)\(id)/menu/"
-        guard let url = URL(string: urlString) else {return}
-        let session = URLSession(configuration: .default)
-        print(urlString)
+        let endPoint = "\(menuURL)\(id)/menu/"
+        guard let url = URL(string: endPoint) else {return}
         
-        let task = session.dataTask(with: url){(data, response, error) in
-            guard error == nil else {return}
-            guard let safeData = data else {return}
+        print(endPoint)
+        
+        let task = URLSession.shared.dataTask(with: url){(data, response, error) in
+            if let _ = error {
+                completed(.failure(.unableToRetrieveMenus))
+                return
+            }
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            guard let safeData = data else {
+                completed(.failure(.unableToRetrieveMenus))
+                return
+            }
             
             do {
                 let jsonResponse = try JSONSerialization.jsonObject(with: safeData, options: [])
@@ -73,9 +97,9 @@ class NetworkManager {
                         menuTitles.append(title)
                     }
                 }
-                completed(menuTitles)
+                completed(.success(menuTitles))
             } catch {
-                completed(nil)        
+                completed(.failure(.unableToRetrieveMenus))
             }
         }
         task.resume()

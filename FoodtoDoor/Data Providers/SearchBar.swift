@@ -44,6 +44,7 @@ class SearchBar: NSObject, UISearchBarDelegate {
         searchBar.searchTextField.text = ""
         searchBar.searchTextField.endEditing(true)
     }
+
 }
 
 
